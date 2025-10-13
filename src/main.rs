@@ -1,4 +1,4 @@
-use crate::ui::canvas::lib::run;
+use crate::ui::canvas::app::run;
 
 mod ui;
 mod engine;
