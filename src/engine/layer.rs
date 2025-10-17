@@ -32,7 +32,7 @@ impl<P: Pixel> Layer<P> {
             transform: Transform::zero(),
             opacity: 1.0,
             blend_mode: BlendMode::Normal,
-            mask_size: 0,
+            mask_index: 0,
             children: Vec::new(),
             painter,
             _marker: PhantomData,
@@ -76,5 +76,9 @@ impl<P: Pixel> Layer<P> {
             count += child.get_layer_count();
         }
         count
+    }
+    
+    pub fn add_layer(&mut self, layer: Layer<P>) {
+        self.children.push(layer);
     }
 }
