@@ -16,7 +16,7 @@ pub struct Layer<P: Pixel> {
     pub transform: Transform,
     pub opacity: f32,
     pub blend_mode: BlendMode,
-    pub mask_size: usize,
+    pub mask_index: usize,
     pub painter: Option<Box<dyn LayerPainter<P>>>,
     pub children: Vec<Layer<P>>,
     _marker: PhantomData<P>,
