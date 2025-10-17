@@ -43,6 +43,12 @@ impl<P: Pixel> Layer<P> {
         self.children.push(child);
     }
 
+    pub fn get_buffer(&mut self) -> ImageBuffer<P> {
+        let mut buffer = ImageBuffer::<P>::new(self.width, self.height);
+        self.painter.as_ref().map(|p| p.paint(&mut buffer));
+        buffer
+    }
+
     pub fn render(&self) -> ImageBuffer<P> {
         println!("Rendering layer '{}'", self.name);
         let mut buffer = ImageBuffer::<P>::new(self.width, self.height);
