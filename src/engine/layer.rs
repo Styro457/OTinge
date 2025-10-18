@@ -78,7 +78,4 @@ impl<P: Pixel> Layer<P> {
         count
     }
     
-    pub fn add_layer(&mut self, layer: Layer<P>) {
-        self.children.push(layer);
-    }
 }
