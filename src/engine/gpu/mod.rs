@@ -1,3 +1,4 @@
 pub mod canvas;
-pub mod texture;
 mod rendering;
+mod textures_array;
+mod layer_data;

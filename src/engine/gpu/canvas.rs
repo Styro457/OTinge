@@ -7,7 +7,7 @@ use winit::event_loop::ActiveEventLoop;
 use winit::keyboard::KeyCode;
 use winit::window::Window;
 
-use super::texture::{write_texture, create_img_buffer};
+use super::textures_array::{create_img_array_buffer, create_texture_array_from_images};
 use super::rendering::vertex::Vertex;
 
 const VERTICES: &[Vertex] = &[
@@ -105,8 +105,13 @@ impl CanvasState {
             source: wgpu::ShaderSource::Wgsl(include_str!("shaders/shader.wgsl").into()),
         });
 
-        let image_buffer = create_img_buffer();
-        let (texture_bind_group_layout, diffuse_bind_group) = write_texture(&mut queue, &mut device, image_buffer);
+        println!("Max Texture Layers {}", device.limits().max_texture_array_layers);
+
+        //let image_buffer = create_img_buffer();
+        //let (texture_bind_group_layout, diffuse_bind_group) = write_texture(&mut queue, &mut device, image_buffer);
+
+        let image_buffer = create_img_array_buffer();
+        let (texture_bind_group_layout, diffuse_bind_group) = create_texture_array_from_images(&mut queue, &mut device, &image_buffer);
 
         let render_pipeline_layout =
             device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
