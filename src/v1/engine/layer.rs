@@ -1,8 +1,7 @@
-use std::marker::PhantomData;
-use crate::engine::image::buffer::ImageBuffer;
-use super::utils::position::Transform;
-use super::utils::composition::BlendMode;
 use super::image::pixel::Pixel;
+use super::utils::composition::BlendMode;
+use super::utils::position::Transform;
+use super::image::buffer::ImageBuffer;
 
 pub trait LayerPainter<P: Pixel> {
     fn paint(&self, buffer: &mut ImageBuffer<P>);
@@ -18,8 +17,8 @@ pub struct Layer<P: Pixel> {
     pub blend_mode: BlendMode,
     pub mask_index: usize,
     pub painter: Option<Box<dyn LayerPainter<P>>>,
-    pub children: Vec<Layer<P>>,
-    _marker: PhantomData<P>,
+    pub effects: Vec<Box<dyn LayerPainter<P>>>,
+    pub children: Vec<Layer<P>>
 }
 
 impl<P: Pixel> Layer<P> {
@@ -34,8 +33,8 @@ impl<P: Pixel> Layer<P> {
             blend_mode: BlendMode::Normal,
             mask_index: 0,
             children: Vec::new(),
-            painter,
-            _marker: PhantomData,
+            effects: Vec::new(),
+            painter
         }
     }
 
@@ -77,5 +76,5 @@ impl<P: Pixel> Layer<P> {
         }
         count
     }
-    
+
 }

@@ -1,12 +1,10 @@
 use std::sync::Arc;
-use wasm_bindgen::prelude::wasm_bindgen;
-use wasm_bindgen::UnwrapThrowExt;
 use winit::application::ApplicationHandler;
 use winit::event::{KeyEvent, MouseButton, WindowEvent};
 use winit::event_loop::{ActiveEventLoop, EventLoop};
 use winit::keyboard::PhysicalKey;
 use winit::window::Window;
-use crate::engine::gpu::canvas::CanvasState;
+use crate::v1::engine::gpu::canvas::CanvasState;
 
 pub struct App {
     #[cfg(target_arch = "wasm32")]

@@ -18,6 +18,14 @@ fn vs_main(model: VertexInput) -> VertexOutput {
     return out;
 }
 
+// ---- layer struct (16B per layer) ----
+struct LayerData {
+    blend_mode: u32,
+    opacity: f32,
+    texture_index: u32,
+    _pad: u32,
+};
+
 // ==== bindings ====
 // @group(0)
 //  binding 0: texture_2d_array<f32>
@@ -29,14 +37,6 @@ fn vs_main(model: VertexInput) -> VertexOutput {
 var tex_array: texture_2d_array<f32>;
 @group(0) @binding(1)
 var tex_sampler: sampler;
-
-// ---- layer struct (16B per layer) ----
-struct LayerData {
-    blend_mode: u32,
-    opacity: f32,
-    mask_index: u32,
-    _pad: u32,
-};
 
 @group(0) @binding(2)
 var<storage, read> layers: array<LayerData>;

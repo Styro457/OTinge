@@ -1,5 +1,5 @@
-use crate::engine::image::pixel::Pixel;
-use crate::engine::layer::Layer;
+use crate::v1::engine::image::pixel::Pixel;
+use crate::v1::engine::layer::Layer;
 
 #[repr(C)]
 #[derive(Copy, Clone, bytemuck::Pod, bytemuck::Zeroable)]
@@ -7,17 +7,17 @@ pub struct LayerData {
     blend_mode: u32,
     opacity: f32,
     mask_index: u32,
-    _pad: u32
+    texture_index: u32,
 }
 
 const MAX_LAYERS: usize = 1024;
 
-pub fn layer_to_data<P: Pixel>(layer: &Layer<P>) -> LayerData {
+pub fn layer_to_data<P: Pixel>(layer: &Layer<P>, texture_index: u32) -> LayerData {
     LayerData {
         blend_mode: layer.blend_mode as u32,
         opacity: layer.opacity,
         mask_index: layer.mask_index as u32,
-        _pad: 0,
+        texture_index,
     }
 }
 

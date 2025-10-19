@@ -1,10 +1,10 @@
 use wgpu::util::DeviceExt;
-use crate::engine::document::Document;
-use crate::engine::gpu::layer_data::{layer_to_data, DocumentData, LayerData};
-use crate::engine::image::buffer::ImageBuffer;
-use crate::engine::image::pixels::rgba::RGBAPixel;
-use crate::engine::layer::Layer;
-use crate::engine::painters::solid_painter::SolidPainter;
+use crate::v1::engine::document::Document;
+use crate::v1::engine::gpu::layer_data::{layer_to_data, DocumentData, LayerData};
+use crate::v1::engine::image::buffer::ImageBuffer;
+use crate::v1::engine::image::pixels::rgba::RGBAPixel;
+use crate::v1::engine::layer::Layer;
+use crate::v1::engine::painters::solid_painter::SolidPainter;
 
 pub fn create_texture_array_from_images(
     queue: &wgpu::Queue,
@@ -155,7 +155,7 @@ pub fn create_img_array_buffer() -> Layer<RGBAPixel<u8>> {
     let blue_solid2: SolidPainter<RGBAPixel<u8>> = SolidPainter::new(blue);
 
     let red_layer: Layer<RGBAPixel<u8>> = Layer::new("Red Layer", 500, 500, Some(Box::new(red_solid)));
-    let mut blue_layer: Layer<RGBAPixel<u8>> = Layer::new("Blue Layer", 500, 500, Some(Box::new(blue_solid)));
+    let blue_layer: Layer<RGBAPixel<u8>> = Layer::new("Blue Layer", 500, 500, Some(Box::new(blue_solid)));
     // blue_layer.transform.x = 30;
     // blue_layer.transform.y = 30;
     let mut blue_layer2: Layer<RGBAPixel<u8>> = Layer::new("Blue Layer", 30, 30, Some(Box::new(blue_solid2)));
@@ -209,5 +209,5 @@ fn write_layer_to_gpu(queue: &wgpu::Queue, texture: &wgpu::Texture, layer_data: 
     };
 
     queue.write_texture(origin, &data, layout, layer_size);
-    layer_data.push(layer_to_data(layer))
+    layer_data.push(layer_to_data(layer, 0))
 }

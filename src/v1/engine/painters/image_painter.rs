@@ -1,5 +1,5 @@
-use crate::engine::image::buffer::ImageBuffer;
-use crate::engine::image::pixel::Pixel;
+use crate::v1::engine::image::buffer::ImageBuffer;
+use crate::v1::engine::image::pixel::Pixel;
 use super::super::layer::LayerPainter;
 
 pub struct ImagePainter {

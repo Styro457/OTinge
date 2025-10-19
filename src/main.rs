@@ -1,7 +1,5 @@
-use crate::ui::canvas::app::run;
-
-mod ui;
-mod engine;
+mod v1;
+use crate::v1::ui::canvas::app::run;
 
 fn main() {
     run().expect("TODO: panic message");
