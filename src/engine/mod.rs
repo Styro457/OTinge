@@ -1,5 +1,7 @@
 //TODO: Replace with separate crates
 
-pub mod layer;
-mod utils;
+pub mod painter;
+pub mod utils;
 mod composition;
+pub mod layer;
+pub mod document;
