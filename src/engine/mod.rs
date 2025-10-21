@@ -5,3 +5,4 @@ pub mod utils;
 mod composition;
 pub mod layer;
 pub mod document;
+mod buffer;
