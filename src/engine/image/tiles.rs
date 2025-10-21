@@ -15,6 +15,6 @@ impl TileGrid {
     pub fn add_tile(&mut self, tile: Tile, position: Pos2) {
         let index = self.tiles.len();
         self.tiles.push(tile);
-        self.indirection[(position.x * self.size.y) + position.y] = index as u16;
+        self.indirection[((position.x * self.size.y) + position.y) as usize] = index as u16;
     }
 }
