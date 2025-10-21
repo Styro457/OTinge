@@ -1,4 +1,4 @@
-//TODO: Replace with separate crates
+//TODO: Replace with separate crate
 
 pub mod painter;
 pub mod utils;
