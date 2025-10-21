@@ -12,5 +12,7 @@ pub trait ImageBuffer {
     fn get_bytes_per_pixel(&self) -> u32;
     fn get_data(&self) -> &[u8];
     fn set_pixel(&mut self, index: usize, color: Color);
+    
+    fn len(&self) -> usize;
 
 }

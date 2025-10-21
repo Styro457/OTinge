@@ -31,4 +31,8 @@ impl ImageBuffer for RGBAu8Buffer {
         let offset = index * 4;
         self.data[offset..(offset + 4)].copy_from_slice(&color.to_rgba_u8());
     }
+
+    fn len(&self) -> usize {
+        self.data.len()/4
+    }
 }

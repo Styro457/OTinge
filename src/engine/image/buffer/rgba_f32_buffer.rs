@@ -31,4 +31,8 @@ impl ImageBuffer for RGBAf32Buffer {
         let offset = index * 4;
         self.data[offset..(offset + 4)].copy_from_slice(&color.to_rgba_f32());
     }
+
+    fn len(&self) -> usize {
+        self.data.len()/4
+    }
 }

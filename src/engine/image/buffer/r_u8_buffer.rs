@@ -29,4 +29,8 @@ impl ImageBuffer for Ru8Buffer {
     fn set_pixel(&mut self, index: usize, color: Color) {
         self.data[index] = color.to_r_u8();
     }
+
+    fn len(&self) -> usize {
+        self.data.len()
+    }
 }
