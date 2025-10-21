@@ -39,7 +39,7 @@ impl Document {
 
     pub fn create_tile(&self) -> Tile {
         Tile {
-            buffer: Box::new(self.buffer_type.new(self.get_tile_size())),
+            buffer: self.buffer_type.create(self.get_tile_size()),
         }
     }
 

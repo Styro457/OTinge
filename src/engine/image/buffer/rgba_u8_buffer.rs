@@ -15,6 +15,10 @@ impl ImageBuffer for RGBAu8Buffer {
         }
     }
 
+    fn create(&self, size: Pos2) -> Box<dyn ImageBuffer> {
+        Box::new(Self::new(size))
+    }
+
     fn get_wgpu_format(&self) -> TextureFormat {
         TextureFormat::Rgba8UnormSrgb
     }

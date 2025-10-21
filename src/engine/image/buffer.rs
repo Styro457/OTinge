@@ -8,6 +8,7 @@ pub mod r_u8_buffer;
 pub trait ImageBuffer {
 
     fn new(size: Pos2) -> Self where Self: Sized;
+    fn create(&self, size: Pos2) -> Box<dyn ImageBuffer>;
     fn get_wgpu_format(&self) -> wgpu::TextureFormat;
     fn get_bytes_per_pixel(&self) -> u32;
     fn get_data(&self) -> &[u8];
