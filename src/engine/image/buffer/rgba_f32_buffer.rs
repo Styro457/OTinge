@@ -1,5 +1,5 @@
 use wgpu::TextureFormat;
-use crate::engine::buffer::image_buffer::ImageBuffer;
+use crate::engine::image::buffer::ImageBuffer;
 
 pub struct RGBAf32Buffer {
     data: Vec<f32>,

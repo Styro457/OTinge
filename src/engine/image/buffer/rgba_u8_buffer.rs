@@ -1,24 +1,24 @@
 use wgpu::TextureFormat;
-use crate::engine::buffer::image_buffer::ImageBuffer;
+use crate::engine::image::buffer::ImageBuffer;
 
-pub struct Ru8Buffer {
+pub struct RGBAu8Buffer {
     data: Vec<u8>,
 }
 
-impl ImageBuffer for Ru8Buffer {
-    
+impl ImageBuffer for RGBAu8Buffer {
+
     fn new(size: usize) -> Self {
         Self {
-            data: vec![0; size],
+            data: vec![0; size * 4],
         }
     }
-
+    
     fn get_wgpu_format(&self) -> TextureFormat {
-        TextureFormat::R8Unorm
+        TextureFormat::Rgba8UnormSrgb
     }
 
     fn get_bytes_per_pixel(&self) -> u32 {
-        1
+        4
     }
 
     fn get_data(&self) -> &[u8] {

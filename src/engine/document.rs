@@ -1,4 +1,4 @@
-use crate::engine::buffer::image_buffer::ImageBuffer;
+use crate::engine::image::buffer::ImageBuffer;
 use crate::engine::layer::Layer;
 use crate::engine::utils::math::pos2::Pos2;
 

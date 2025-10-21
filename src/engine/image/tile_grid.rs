@@ -1,4 +1,4 @@
-use crate::engine::buffer::tile::Tile;
+use crate::engine::image::tile::Tile;
 use crate::engine::utils::math::pos2::Pos2;
 
 pub struct TileGrid {

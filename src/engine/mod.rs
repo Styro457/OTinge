@@ -6,4 +6,4 @@ pub mod painters;
 pub mod effects;
 pub mod utils;
 mod composition;
-mod buffer;
+mod image;
