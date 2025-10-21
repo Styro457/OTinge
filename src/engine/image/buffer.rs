@@ -1,9 +1,9 @@
 use crate::engine::image::color::Color;
 use crate::engine::utils::math::pos2::Pos2;
 
-mod rgba_u8_buffer;
-mod rgba_f32_buffer;
-mod r_u8_buffer;
+pub mod rgba_u8_buffer;
+pub mod rgba_f32_buffer;
+pub mod r_u8_buffer;
 
 pub trait ImageBuffer {
 

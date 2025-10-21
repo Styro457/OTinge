@@ -5,5 +5,5 @@ pub mod document;
 pub mod painters;
 pub mod effects;
 pub mod utils;
-mod composition;
-mod image;
+pub mod composition;
+pub mod image;
