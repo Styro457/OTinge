@@ -1,8 +1,8 @@
 use crate::engine::composition::BlendMode;
-use crate::engine::painter::effects::Effect;
 use crate::engine::utils::transform::Transform;
 
-use crate::engine::painter::painter::Painter;
+use crate::engine::effects::Effect;
+use crate::engine::painters::Painter;
 
 pub struct Layer {
     pub label: String,
