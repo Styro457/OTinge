@@ -28,11 +28,16 @@ impl Layer {
             children: Vec::new(),
         }
     }
+
     pub fn get_layer_count(&self) -> u32 {
         let mut count = 1;
         for child in &self.children {
             count += child.get_layer_count();
         }
         count
+    }
+
+    pub fn add_child(&mut self, layer: Layer) {
+        self.children.push(layer);
     }
 }

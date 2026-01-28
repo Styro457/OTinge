@@ -1,5 +1,4 @@
 // ==== vertex ====
-
 struct VertexInput {
     @location(0) position: vec3<f32>,
     @location(1) tex_coords: vec2<f32>,
@@ -18,7 +17,7 @@ fn vs_main(model: VertexInput) -> VertexOutput {
     return out;
 }
 
-// ---- layer struct (16B per layer) ----
+// ---- painter struct (16B per painter) ----
 struct LayerData {
     blend_mode: u32,
     opacity: f32,
