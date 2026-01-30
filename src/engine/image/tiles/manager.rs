@@ -43,4 +43,19 @@ impl TileManager {
             buffer: document.buffer_type.create(self.get_tile_size()),
         }
     }
+
+    pub fn add_tile(&mut self, tile_grid: &mut TileGrid, tile: Tile, position: Pos2) {
+        let index = ((position.x * tile_grid.size.y) + position.y) as usize;
+        let key = self.tiles.insert(tile);
+        tile_grid.indirection[index] = key;
+        tile_grid.dirty_tiles.set(index, true);
+    }
+
+    pub fn remove_tile(&mut self, tile_grid: &mut TileGrid, position: Pos2) {
+        let index = ((position.x * tile_grid.size.y) + position.y) as usize;
+        let key = tile_grid.indirection[index];
+        tile_grid.indirection[index] = TileKey::null();
+        self.tiles.remove(key);
+        tile_grid.dirty_tiles.set(index, true);
+    }
 }

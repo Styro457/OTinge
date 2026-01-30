@@ -12,7 +12,7 @@ struct ImagePainter {
 
 impl ImagePainter {
 
-    pub fn new(document: &Document, size: Pos2) -> Self {
+    pub fn new(document: &mut Document, size: Pos2) -> Self {
         let mut tile_grid = document.tile_manager.create_tile_grid(size);
 
         for i in 0..tile_grid.size.x {
@@ -21,7 +21,7 @@ impl ImagePainter {
                 for x in 0..tile.buffer.len() {
                     tile.buffer.set_pixel(x, Color::RGBAu8(255, 0, 0, 255));
                 }
-                tile_grid.add_tile(tile, Pos2::new(i, j));
+                document.tile_manager.add_tile(&mut tile_grid, tile, Pos2::new(i, j));
             }
         }
 

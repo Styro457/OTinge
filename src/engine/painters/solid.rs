@@ -15,18 +15,18 @@ pub struct SolidPainter {
 
 impl SolidPainter {
 
-    pub fn new(document: &Document, size: Pos2, color: Color) -> Self {
+    pub fn new(document: &mut Document, size: Pos2, color: Color) -> Self {
         let tile_grid = document.tile_manager.create_tile_grid(size);
         let mut obj = Self {
             size,
             color,
             tile_grid,
         };
-        obj.set_color(color, &document);
+        obj.set_color(color, document);
         obj
     }
 
-    pub fn set_color(&mut self, color: Color, document: &Document) {
+    pub fn set_color(&mut self, color: Color, document: &mut Document) {
         self.color = color;
         let tile_grid = &mut self.tile_grid;
         for i in 0..tile_grid.size.x {
@@ -35,7 +35,7 @@ impl SolidPainter {
                 for x in 0..tile.buffer.len() {
                     tile.buffer.set_pixel(x, self.color);
                 }
-                tile_grid.add_tile(tile, Pos2::new(i, j));
+                document.tile_manager.add_tile(tile_grid, tile, Pos2::new(i, j));
             }
         }
     }
