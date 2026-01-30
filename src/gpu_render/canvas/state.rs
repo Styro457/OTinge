@@ -74,8 +74,8 @@ impl CanvasState {
                 required_limits: if cfg!(target_arch = "wasm32") {
                     wgpu::Limits::downlevel_webgl2_defaults()
                 } else {
-                    //wgpu::Limits::default()
-                    adapter.limits()
+                    wgpu::Limits::default()
+                    //adapter.limits()
                 },
                 memory_hints: Default::default(),
                 trace: wgpu::Trace::Off,
@@ -101,7 +101,7 @@ impl CanvasState {
             width: size.width,
             height: size.height,
             //TODO: Look into what is actually better
-            present_mode: wgpu::PresentMode::Fifo,//surface_caps.present_modes[0],
+            present_mode: surface_caps.present_modes[0],//wgpu::PresentMode::Fifo,
             alpha_mode: surface_caps.alpha_modes[0],
             desired_maximum_frame_latency: 2,
             view_formats: vec![],
