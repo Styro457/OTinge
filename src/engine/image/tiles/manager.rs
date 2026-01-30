@@ -1,16 +1,22 @@
+use bitvec::bitvec;
+use slotmap::{new_key_type, DefaultKey, Key, SlotMap};
 use crate::engine::document::Document;
 use crate::engine::image::tiles::grid::TileGrid;
 use crate::engine::image::tiles::Tile;
 use crate::engine::utils::math::pos2::Pos2;
 
+new_key_type! {
+    pub struct TileKey;
+}
+
 pub struct TileManager {
-    pub tiles: Vec<Tile>,
+    pub tiles: SlotMap<TileKey, Tile>,
 }
 
 impl TileManager {
     pub fn new() -> Self {
         Self {
-            tiles: Vec::new(),
+            tiles: SlotMap::with_key()
         }
     }
 
@@ -27,7 +33,8 @@ impl TileManager {
 
         TileGrid {
             size,
-            indirection: vec![u32::MAX; num_tiles],
+            indirection: vec![TileKey::null(); num_tiles],
+            dirty_tiles: bitvec![0; num_tiles],
         }
     }
 
