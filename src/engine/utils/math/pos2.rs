@@ -12,11 +12,24 @@ impl Pos2 {
     pub fn new(x: u32, y: u32) -> Pos2 {
         Pos2 { x, y }
     }
+
 }
 
 impl From<(u32, u32)> for Pos2 {
     fn from(tuple: (u32, u32)) -> Self {
         Pos2 { x: tuple.0, y: tuple.1 }
+    }
+}
+
+impl From<Pos2> for [u32; 2] {
+    fn from(pos: Pos2) -> Self {
+        [pos.x, pos.y]
+    }
+}
+
+impl From<Pos2> for [f32; 2] {
+    fn from(pos: Pos2) -> Self {
+        [pos.x as f32, pos.y as f32]
     }
 }
 

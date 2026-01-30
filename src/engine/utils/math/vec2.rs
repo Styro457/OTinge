@@ -13,6 +13,7 @@ impl Vec2 {
     pub fn new(x: f32, y: f32) -> Vec2 {
         Vec2 { x, y }
     }
+
 }
 
 impl From<(f32, f32)> for Vec2 {
@@ -21,3 +22,8 @@ impl From<(f32, f32)> for Vec2 {
     }
 }
 
+impl From<Vec2> for [f32; 2] {
+    fn from(pos: Vec2) -> Self {
+        [pos.x, pos.y]
+    }
+}
