@@ -1,22 +1,17 @@
-use bitvec::bitvec;
-use slotmap::{new_key_type, DefaultKey, Key, SlotMap};
+use crate::engine::utils::slotmap::SlotMap;
 use crate::engine::document::Document;
 use crate::engine::image::tiles::grid::TileGrid;
 use crate::engine::image::tiles::Tile;
 use crate::engine::utils::math::pos2::Pos2;
 
-new_key_type! {
-    pub struct TileKey;
-}
-
 pub struct TileManager {
-    pub tiles: SlotMap<TileKey, Tile>,
+    pub tiles: SlotMap<Tile>,
 }
 
 impl TileManager {
     pub fn new() -> Self {
         Self {
-            tiles: SlotMap::with_key()
+            tiles: SlotMap::new()
         }
     }
 
@@ -33,8 +28,9 @@ impl TileManager {
 
         TileGrid {
             size,
-            indirection: vec![TileKey::null(); num_tiles],
-            dirty_tiles: bitvec![0; num_tiles],
+            indirection: vec![u32::MAX; num_tiles],
+            dirty_tiles: Vec::new(),
+            dirty: true,
         }
     }
 
@@ -45,17 +41,21 @@ impl TileManager {
     }
 
     pub fn add_tile(&mut self, tile_grid: &mut TileGrid, tile: Tile, position: Pos2) {
-        let index = ((position.x * tile_grid.size.y) + position.y) as usize;
+        let index = ((position.x * tile_grid.size.y) + position.y);
         let key = self.tiles.insert(tile);
-        tile_grid.indirection[index] = key;
-        tile_grid.dirty_tiles.set(index, true);
+        tile_grid.indirection[index as usize] = key as u32;
+        tile_grid.dirty_tiles.push(index);
     }
 
     pub fn remove_tile(&mut self, tile_grid: &mut TileGrid, position: Pos2) {
         let index = ((position.x * tile_grid.size.y) + position.y) as usize;
         let key = tile_grid.indirection[index];
-        tile_grid.indirection[index] = TileKey::null();
-        self.tiles.remove(key);
-        tile_grid.dirty_tiles.set(index, true);
+        tile_grid.indirection[index] = u32::MAX;
+        self.tiles.remove(key as usize);
+        tile_grid.dirty_tiles.push(index as u32);
+    }
+
+    pub fn get_tile(&self, id: u32) -> Option<&Tile> {
+        self.tiles.get(id as usize)
     }
 }
