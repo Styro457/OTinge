@@ -1,5 +1,6 @@
 use std::sync::Arc;
 use winit::application::ApplicationHandler;
+use winit::dpi::PhysicalSize;
 use winit::event::{KeyEvent, MouseButton, WindowEvent};
 use winit::event_loop::{ActiveEventLoop, EventLoop};
 use winit::keyboard::PhysicalKey;
@@ -28,7 +29,9 @@ impl App {
 impl ApplicationHandler<CanvasState> for App {
     fn resumed(&mut self, event_loop: &ActiveEventLoop) {
         #[allow(unused_mut)]
-        let mut window_attributes = Window::default_attributes();
+        let mut window_attributes = Window::default_attributes()
+            .with_inner_size(PhysicalSize::new(512*2, 512*2))
+            .with_resizable(false);
 
         #[cfg(target_arch = "wasm32")]
         {
