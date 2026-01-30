@@ -17,11 +17,19 @@ pub fn create_fake_document() -> Document {
     layer1.painter = Some(solid_red_painter);
     let mut layer2 = Layer::new("Layer 2", None);
     let solid_green_painter = Box::new(SolidPainter::new(&mut document,
-                                                         Pos2::new(500, 500),
-                                                         Color::RGBAu8(255, 255, 0, 255),
+                                                         Pos2::new(200, 200),
+                                                         Color::RGBAu8(255, 255, 0, 50),
     ));
     layer2.painter = Some(solid_green_painter);
+
+    let mut layer3 = Layer::new("Layer 3", None);
+    let solid_green_painter2 = Box::new(SolidPainter::new(&mut document,
+                                                         Pos2::new(100, 100),
+                                                         Color::RGBAu8(255, 255, 0, 50),
+    ));
+    layer3.painter = Some(solid_green_painter2);
     document.base_layer.add_child(layer1);
     document.base_layer.add_child(layer2);
+    document.base_layer.add_child(layer3);
     document
 }
