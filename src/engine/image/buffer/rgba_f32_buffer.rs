@@ -1,6 +1,10 @@
+use image::DynamicImage;
 use wgpu::TextureFormat;
+use crate::engine::document::Document;
 use crate::engine::image::buffer::ImageBuffer;
 use crate::engine::image::color::Color;
+use crate::engine::image::tiles::grid::TileGrid;
+use crate::engine::image::tiles::manager::TileManager;
 use crate::engine::utils::math::pos2::Pos2;
 
 pub struct RGBAf32Buffer {
@@ -38,5 +42,9 @@ impl ImageBuffer for RGBAf32Buffer {
 
     fn len(&self) -> usize {
         self.data.len()/4
+    }
+
+    fn convert_dynamic_image(&self, document: &mut Document, image: &DynamicImage) -> (Pos2, TileGrid) {
+        todo!()
     }
 }

@@ -3,6 +3,7 @@ use crate::engine::image::buffer::ImageBuffer;
 use crate::engine::image::buffer::rgba_u8_buffer::RGBAu8Buffer;
 use crate::engine::image::color::Color;
 use crate::engine::layer::Layer;
+use crate::engine::painters::image::ImagePainter;
 use crate::engine::painters::solid::SolidPainter;
 use crate::engine::utils::math::pos2::Pos2;
 
@@ -36,6 +37,15 @@ pub fn create_fake_document() -> Document {
     layer3.transform.position = Pos2::new(240, 250);
     layer3.transform.rotation = 3.14/4.0;
     document.base_layer.add_child(layer3);
+
+    let mut layer4 = Layer::new("Layer 4", None);
+    let image_painter = Box::new(ImagePainter::new(&mut document,
+                                                        "image.png",
+    ));
+    layer4.painter = Some(image_painter);
+    layer4.transform.position = Pos2::new(250, 250);
+    layer4.opacity = 0.5;
+    document.base_layer.add_child(layer4);
 
     document
 }
