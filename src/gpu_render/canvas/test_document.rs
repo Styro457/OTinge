@@ -1,6 +1,5 @@
 use crate::engine::document::Document;
 use crate::engine::image::buffer::ImageBuffer;
-use crate::engine::image::buffer::rgba_f32_buffer::RGBAf32Buffer;
 use crate::engine::image::buffer::rgba_u8_buffer::RGBAu8Buffer;
 use crate::engine::image::color::Color;
 use crate::engine::layer::Layer;
@@ -15,21 +14,28 @@ pub fn create_fake_document() -> Document {
                                                        Color::RGBAu8(255, 0, 0, 255),
     ));
     layer1.painter = Some(solid_red_painter);
+    layer1.transform.position = Pos2::new(250, 250);
+    document.base_layer.add_child(layer1);
+
     let mut layer2 = Layer::new("Layer 2", None);
-    let solid_green_painter = Box::new(SolidPainter::new(&mut document,
-                                                         Pos2::new(200, 200),
-                                                         Color::RGBAu8(255, 255, 0, 50),
+    let solid_blue_painter = Box::new(SolidPainter::new(&mut document,
+                                                       Pos2::new(50, 50),
+                                                       Color::RGBAu8(0, 0, 255, 100),
     ));
-    layer2.painter = Some(solid_green_painter);
+    layer2.painter = Some(solid_blue_painter);
+    layer2.transform.position = Pos2::new(250, 250);
+    layer2.transform.rotation = 3.14/4.0;
+    document.base_layer.add_child(layer2);
 
     let mut layer3 = Layer::new("Layer 3", None);
-    let solid_green_painter2 = Box::new(SolidPainter::new(&mut document,
-                                                         Pos2::new(100, 100),
-                                                         Color::RGBAu8(255, 255, 0, 50),
+    let solid_blue_painter = Box::new(SolidPainter::new(&mut document,
+                                                        Pos2::new(50, 50),
+                                                        Color::RGBAu8(0, 0, 255, 255),
     ));
-    layer3.painter = Some(solid_green_painter2);
-    document.base_layer.add_child(layer1);
-    document.base_layer.add_child(layer2);
+    layer3.painter = Some(solid_blue_painter);
+    layer3.transform.position = Pos2::new(240, 250);
+    layer3.transform.rotation = 3.14/4.0;
     document.base_layer.add_child(layer3);
+
     document
 }
