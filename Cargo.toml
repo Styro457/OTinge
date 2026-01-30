@@ -23,3 +23,5 @@ wasm-bindgen-futures = "0.4.58"
 
 slotmap = "1.1.1"
 bitvec = "1.0.1"
+
+glam = "0.31.0"
