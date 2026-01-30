@@ -74,8 +74,8 @@ impl CanvasState {
                 required_limits: if cfg!(target_arch = "wasm32") {
                     wgpu::Limits::downlevel_webgl2_defaults()
                 } else {
-                    wgpu::Limits::default()
-                    //adapter.limits()
+                    //wgpu::Limits::default()
+                    adapter.limits()
                 },
                 memory_hints: wgpu::MemoryHints::MemoryUsage,//Default::default(),
                 trace: wgpu::Trace::Off,
