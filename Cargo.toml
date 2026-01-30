@@ -3,6 +3,12 @@ name = "Tinge"
 version = "0.1.0"
 edition = "2024"
 
+[profile.release]
+strip = true
+#opt-level = "z"  # Optimize for size.
+#lto = true
+#panic = "abort"
+
 [dependencies]
 wgpu = "28.0.0"
 winit = "0.30.12"
