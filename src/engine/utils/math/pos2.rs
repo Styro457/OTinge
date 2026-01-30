@@ -1,3 +1,5 @@
+use crate::engine::utils::math::vec2::Vec2;
+
 #[repr(C)]
 #[derive(Clone, Copy, Default, PartialEq)]
 pub struct Pos2 {
@@ -13,6 +15,9 @@ impl Pos2 {
         Pos2 { x, y }
     }
 
+    pub fn to_vec2(self) -> Vec2 {
+        Vec2::new(self.x as f32, self.y as f32)
+    }
 }
 
 impl From<(u32, u32)> for Pos2 {
