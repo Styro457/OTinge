@@ -100,7 +100,8 @@ impl CanvasState {
             format: surface_format,
             width: size.width,
             height: size.height,
-            present_mode: surface_caps.present_modes[0],
+            //TODO: Look into what is actually better
+            present_mode: wgpu::PresentMode::Fifo,//surface_caps.present_modes[0],
             alpha_mode: surface_caps.alpha_modes[0],
             desired_maximum_frame_latency: 2,
             view_formats: vec![],
