@@ -77,7 +77,7 @@ impl CanvasState {
                     wgpu::Limits::default()
                     //adapter.limits()
                 },
-                memory_hints: Default::default(),
+                memory_hints: wgpu::MemoryHints::MemoryUsage,//Default::default(),
                 trace: wgpu::Trace::Off,
             })
             .await?;
