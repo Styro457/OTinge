@@ -64,7 +64,7 @@ impl TileManager {
     }
 
     pub fn get_tile(&self, tile_grid: &TileGrid, x: u32, y: u32) -> Option<&Tile> {
-        let tile_id = tile_grid.indirection[Self::get_index_from_pos(x, y)];
+        let tile_id = tile_grid.indirection[Self::get_index_from_pos(x, y, tile_grid.size.y)];
         if tile_id == EMPTY_TILE {
             return None
         }
@@ -72,7 +72,7 @@ impl TileManager {
     }
 
     pub fn get_tile_or_create(&mut self, tile_grid: &mut TileGrid, x: u32, y: u32) -> &mut Tile {
-        let index = Self::get_index_from_pos(x, y);
+        let index = Self::get_index_from_pos(x, y, tile_grid.size.y);
         let mut tile_id = tile_grid.indirection[index];
         if tile_id == EMPTY_TILE {
             tile_id = self.create_tile(tile_grid, index);
@@ -84,7 +84,7 @@ impl TileManager {
         self.tiles.get(id as usize)
     }
 
-    pub fn get_index_from_pos(x: u32, y: u32) -> usize {
-        ((x*y)+y) as usize
+    pub fn get_index_from_pos(x: u32, y: u32, grid_height: u32) -> usize {
+        ((x*grid_height) + y) as usize
     }
 }
