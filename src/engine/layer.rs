@@ -3,6 +3,7 @@ use crate::engine::utils::transform::Transform;
 
 use crate::engine::effects::Effect;
 use crate::engine::painters::Painter;
+use crate::engine::utils::math::pos2::Pos2;
 
 pub struct Layer {
     pub label: String,
@@ -39,5 +40,14 @@ impl Layer {
 
     pub fn add_child(&mut self, layer: Layer) {
         self.children.push(layer);
+    }
+    
+    pub fn get_size(&self) -> Pos2 {
+        if self.painter.is_some() {
+            self.painter.as_ref().unwrap().get_size()
+        }
+        else {
+            Pos2::ZERO
+        }
     }
 }

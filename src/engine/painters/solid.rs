@@ -2,7 +2,6 @@ use std::cmp::min;
 use crate::engine::document::Document;
 use crate::engine::image::color::Color;
 use crate::engine::image::tiles::grid::TileGrid;
-use crate::engine::image::tiles::Tile;
 use crate::engine::painters::Painter;
 use crate::engine::utils::math::pos2::Pos2;
 
@@ -64,6 +63,10 @@ impl Painter for SolidPainter {
 
     fn get_tilegrid(&self) -> &TileGrid {
         &self.tile_grid
+    }
+
+    fn get_size(&self) -> Pos2 {
+        self.size
     }
 
 }
