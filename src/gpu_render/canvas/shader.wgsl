@@ -88,8 +88,8 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
     );
 
     let tile_uv = vec2<f32>(
-            fract(in.tex_coords.x * TILE_SIZE),
-            fract(in.tex_coords.y * TILE_SIZE)
+            fract(in.tex_coords.x * grid_width),
+            fract(in.tex_coords.y * grid_height)
     );
 
     for (var i: u32 = 0u; i < u_layer_count; i = i + 1u) {
