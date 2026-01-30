@@ -1,5 +1,6 @@
 use wgpu::util::DeviceExt;
 use crate::engine::document::Document;
+use crate::engine::image::tiles::EMPTY_TILE;
 use crate::engine::layer::Layer;
 use crate::gpu_render::canvas::layer_data::{layer_to_data, DocumentData, LayerData};
 
@@ -211,6 +212,9 @@ impl DocumentGPUHandler {
             let tile_grid = layer.painter.as_ref().unwrap().get_tilegrid();
 
             for tile_key in tile_grid.indirection.iter() {
+                if *tile_key == EMPTY_TILE {
+                    continue;
+                }
 
                 let tile = document.tile_manager.get_tile_by_id(*tile_key).unwrap();
                 queue.write_texture(
