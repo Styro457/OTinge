@@ -1,3 +1,3 @@
 //TODO: Replace with separate crates
-pub mod utils;
+
 pub mod canvas;

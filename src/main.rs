@@ -1,9 +1,8 @@
-mod v1;
+use crate::ui::canvas::app::run;
+
 mod engine;
 mod gpu_render;
-
-use crate::v1::ui::canvas::app::run;
-
+mod ui;
 
 fn main() {
     run().expect("TODO: panic message");
