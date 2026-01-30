@@ -70,13 +70,13 @@ impl TileManager {
         self.tiles.get(tile_id as usize)
     }
 
-    pub fn get_tile_or_create(&mut self, tile_grid: &mut TileGrid, x: u32, y: u32) -> &Tile {
+    pub fn get_tile_or_create(&mut self, tile_grid: &mut TileGrid, x: u32, y: u32) -> &mut Tile {
         let index = Self::get_index_from_pos(x, y);
         let tile_id = tile_grid.indirection[index];
         if tile_id == EMPTY_TILE {
             self.create_tile(tile_grid, index);
         }
-        self.tiles.get(tile_id as usize).unwrap()
+        self.tiles.get_mut(tile_id as usize).unwrap()
     }
 
     pub fn get_tile_by_id(&self, id: u32) -> Option<&Tile> {
