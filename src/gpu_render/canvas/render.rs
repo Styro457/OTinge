@@ -6,7 +6,7 @@ pub fn create_render_pipeline(device: &Device, config: &SurfaceConfiguration, sh
         device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
             label,
             bind_group_layouts,
-            push_constant_ranges: &[],
+            immediate_size: 0,
         });
 
     let render_pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
@@ -48,7 +48,7 @@ pub fn create_render_pipeline(device: &Device, config: &SurfaceConfiguration, sh
             mask: !0, // 3.
             alpha_to_coverage_enabled: false, // 4.
         },
-        multiview: None, // 5.
+        multiview_mask: None, // 5.
         cache: None, // 6.
     });
     render_pipeline
