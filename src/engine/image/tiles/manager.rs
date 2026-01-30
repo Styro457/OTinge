@@ -4,6 +4,8 @@ use crate::engine::image::tiles::grid::TileGrid;
 use crate::engine::image::tiles::Tile;
 use crate::engine::utils::math::pos2::Pos2;
 
+pub const TILE_SIZE: u32 = 256;
+
 pub struct TileManager {
     pub tiles: SlotMap<Tile>,
 }
@@ -16,7 +18,7 @@ impl TileManager {
     }
 
     pub fn get_tile_size(&self) -> Pos2 {
-        Pos2::new(64, 64)
+        Pos2::new(256, 256)
     }
 
     pub fn create_tile_grid(&self, pixel_size: Pos2) -> TileGrid {
@@ -25,6 +27,8 @@ impl TileManager {
         if pixel_size.y % self.get_tile_size().y != 0 { size.y += 1; }
 
         let num_tiles = (size.x * size.y) as usize;
+
+        println!("CREATING GRID: {num_tiles} ");
 
         TileGrid {
             size,

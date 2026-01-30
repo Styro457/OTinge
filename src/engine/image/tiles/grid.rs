@@ -9,5 +9,7 @@ pub struct TileGrid {
 }
 
 impl TileGrid {
+    pub fn get_data(&self) -> &[u8] {
+        bytemuck::cast_slice(&self.indirection)
     }
 }

@@ -35,7 +35,7 @@ pub struct CanvasState {
     num_vertices: u32,
     num_indices: u32,
 
-    pub document_handler: Option<DocumentGPUHandler>,
+    pub document_handler: DocumentGPUHandler,
 
     pub window: Arc<Window>,
 }
@@ -118,6 +118,8 @@ impl CanvasState {
 
         let render_pipeline = create_render_pipeline(&device, &config, shader, Some("Render Pipeline"), &[&texture_bind_group_layout]);
 
+        let document_handler = DocumentGPUHandler::new(&device, &queue, &create_fake_document(), &texture_bind_group_layout);
+
         let vertex_buffer = device.create_buffer_init(
             &wgpu::util::BufferInitDescriptor {
                 label: Some("Vertex Buffer"),
@@ -148,7 +150,7 @@ impl CanvasState {
             index_buffer,
             num_vertices,
             num_indices,
-            document_handler: None,
+            document_handler,
             window,
         })
     }
@@ -208,9 +210,7 @@ impl CanvasState {
 
             render_pass.set_pipeline(&self.render_pipeline);
 
-            if !self.document_handler.is_none() {
-                render_pass.set_bind_group(0, &self.document_handler.as_mut().unwrap().bind_group, &[]);
-            }
+            render_pass.set_bind_group(0, &self.document_handler.bind_group, &[]);
 
             render_pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
             render_pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint16);
@@ -227,13 +227,9 @@ impl CanvasState {
     pub(crate) fn handle_key(&mut self, event_loop: &ActiveEventLoop, code: KeyCode, is_pressed: bool) {
         match (code, is_pressed) {
             (KeyCode::Escape, true) => event_loop.exit(),
-            (KeyCode::KeyN, true) => self.create_document(),
+            (KeyCode::KeyN, true) => println!("N KEY"),
             _ => {}
         }
-    }
-
-    fn create_document(&mut self) {
-        self.document_handler = Option::from(DocumentGPUHandler::new(&self.device, &self.queue, &create_fake_document(), &self.render_pipeline.get_bind_group_layout(0)))
     }
 
 }
