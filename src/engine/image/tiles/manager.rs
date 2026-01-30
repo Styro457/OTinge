@@ -41,10 +41,11 @@ impl TileManager {
         }
     }
 
-    fn create_tile(&mut self, tile_grid: &mut TileGrid, index: usize) {
+    fn create_tile(&mut self, tile_grid: &mut TileGrid, index: usize) -> u32 {
         let tile: Tile = self.buffer_type.create(self.get_tile_size());
-        let key = self.tiles.insert(tile);
-        tile_grid.indirection[index] = key as u32;
+        let key = self.tiles.insert(tile) as u32;
+        tile_grid.indirection[index] = key;
+        key
     }
 
     pub fn add_tile(&mut self, tile_grid: &mut TileGrid, tile: Tile, position: Pos2) {
@@ -72,9 +73,9 @@ impl TileManager {
 
     pub fn get_tile_or_create(&mut self, tile_grid: &mut TileGrid, x: u32, y: u32) -> &mut Tile {
         let index = Self::get_index_from_pos(x, y);
-        let tile_id = tile_grid.indirection[index];
+        let mut tile_id = tile_grid.indirection[index];
         if tile_id == EMPTY_TILE {
-            self.create_tile(tile_grid, index);
+            tile_id = self.create_tile(tile_grid, index);
         }
         self.tiles.get_mut(tile_id as usize).unwrap()
     }
