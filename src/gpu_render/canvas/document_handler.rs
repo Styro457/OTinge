@@ -84,18 +84,19 @@ impl DocumentGPUHandler {
     ) -> Self {
         // TODO: Get an actual value
         let tile_count = 64;
+        let layers_count = 128;
         let layer_count = document.layer_count();
-        let width = document.tile_manager.get_tile_size().x;
-        let height = document.tile_manager.get_tile_size().y;
+        let tile_size = document.tile_manager.get_tile_size();
+        let grid_size = document.tile_manager.get_grid_size(document.size);
 
         // --- 1. Create Textures ---
 
         let layers_texture = device.create_texture(&wgpu::TextureDescriptor {
             label: Some("texture_layer_array"),
             size:  wgpu::Extent3d {
-                width,
-                height,
-                depth_or_array_layers: tile_count,
+                width: grid_size.x,
+                height: grid_size.y,
+                depth_or_array_layers: layers_count,
             },
             mip_level_count: 1,
             sample_count: 1,
@@ -106,8 +107,8 @@ impl DocumentGPUHandler {
         });
 
         let tiles_texture_size = wgpu::Extent3d {
-            width,
-            height,
+            width: tile_size.x,
+            height: tile_size.y,
             depth_or_array_layers: tile_count,
         };
 
@@ -117,7 +118,7 @@ impl DocumentGPUHandler {
             mip_level_count: 1,
             sample_count: 1,
             dimension: wgpu::TextureDimension::D2,
-            format: document.buffer_type.get_wgpu_format(),
+            format: document.tile_manager.buffer_type.get_wgpu_format(),
             usage: wgpu::TextureUsages::TEXTURE_BINDING | wgpu::TextureUsages::COPY_DST,
             view_formats: &[],
         });
@@ -211,7 +212,7 @@ impl DocumentGPUHandler {
 
             for tile_key in tile_grid.indirection.iter() {
 
-                let tile = document.tile_manager.get_tile(*tile_key).unwrap();
+                let tile = document.tile_manager.get_tile_by_id(*tile_key).unwrap();
                 queue.write_texture(
                     wgpu::TexelCopyTextureInfo {
                         texture: tiles_texture,
@@ -223,10 +224,10 @@ impl DocumentGPUHandler {
                         },
                         aspect: wgpu::TextureAspect::All,
                     },
-                    &tile.buffer.get_data(),
+                    &tile.get_data(),
                     wgpu::TexelCopyBufferLayout {
                         offset: 0,
-                        bytes_per_row: Some(tile.buffer.get_bytes_per_pixel() * document.tile_manager.get_tile_size().x),
+                        bytes_per_row: Some(tile.get_bytes_per_pixel() * document.tile_manager.get_tile_size().x),
                         rows_per_image: Some(document.tile_manager.get_tile_size().y),
                     },
                     wgpu::Extent3d {

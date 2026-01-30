@@ -6,7 +6,6 @@ use crate::engine::utils::math::pos2::Pos2;
 pub struct Document {
     pub size: Pos2,
     pub base_layer: Layer,
-    pub buffer_type: Box<dyn ImageBuffer>,
     pub tile_manager: TileManager,
 }
 
@@ -16,8 +15,7 @@ impl Document {
         Self {
             size: Pos2::new(width, height),
             base_layer: Layer::new("Base Layer", None),
-            buffer_type,
-            tile_manager: TileManager::new(),
+            tile_manager: TileManager::new(buffer_type),
         }
     }
 
