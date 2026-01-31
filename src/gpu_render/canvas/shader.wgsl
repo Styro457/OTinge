@@ -19,15 +19,6 @@ fn vs_main(model: VertexInput) -> VertexOutput {
 
 // --- helper functions ---
 
-fn rotate_vec(v: vec2<f32>, angle: f32) -> vec2<f32> {
-    let c = cos(angle);
-    let s = sin(angle);
-    return vec2<f32>(
-        v.x * c - v.y * s,
-        v.x * s + v.y * c
-    );
-}
-
 // --- painter struct (16B per painter) ---
 struct LayerData {
     blend_mode: u32,
